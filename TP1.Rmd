@@ -566,3 +566,4 @@ par(mfrow=c(1, 1))
     Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Normales es exactamente la curva de la normal $N(0, 1)$
 
 -   Explicar las diferencias que puede haber en las conclusiones para este apartado (distribución normal) y las de las distribuciones anteriores (Bernoulli, uniforme y exponencial).
+
