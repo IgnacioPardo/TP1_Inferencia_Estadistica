@@ -1,0 +1,78 @@
+
+```{R}
+# Creamos la moneda: vector con los posibles resultados del lanzamiento
+moneda <- c("cara", "ceca")
+## [1] "cara" "ceca"
+
+# Lanzamos la moneda
+sample(x = moneda, size = 1)
+## [1] "ceca"
+
+# Lanzamos 10 monedas
+sample(x = moneda, size = 10, replace = TRUE)
+## [1] "ceca" "ceca" "ceca" "ceca" "ceca" "ceca" "cara" "cara" "cara" "ceca"
+```
+
+```{R}
+Nrep <- 1000
+muchas_monedas <- sample(x = moneda, size = Nrep, replace = TRUE)
+muchas_monedas[1:10]
+
+muchas_monedas[1:10] == "cara"
+
+sum(muchas_monedas[1:10] == "cara")
+```
+
+```{r}
+mean(muchas_monedas[1:20] == "cara")
+## 0.35
+```
+
+```{r}
+frec_relativa_vec <- rep(NA, Nrep)
+
+for (n in 1:Nrep) {
+    frec_relativa_vec[n] <- mean(muchas_monedas[1:n] == "cara")
+}
+
+plot(seq(1:Nrep), frec_relativa_vec, cex = 0.1, ylim = c(0, 1), xlab = "repeticiones", ylab = "frec rel", main = "Frecuencia relativa de cara")
+```
+
+```{r}
+muchas_monedas_2 <- muchas_monedas <- sample(x = moneda, size = Nrep, replace = TRUE)
+
+frec_relativa_vec_2 <- rep(NA, Nrep)
+
+for (n in 1:Nrep) {
+    frec_relativa_vec_2[n] <- mean(muchas_monedas_2[1:n] == "cara")
+}
+
+plot(seq(1:Nrep), frec_relativa_vec, cex = 0.1, ylim = c(0, 1), xlab = "repeticiones", ylab = "frec rel", main = "Frecuencia relativade cara")
+
+# Agregamos las de la nueva simulacion
+
+points(seq(1:Nrep), frec_relativa_vec_2, cex = 0.1, col = "red")
+```
+
+```{r}
+plot(seq(1:Nrep), frec_relativa_vec, cex = 0.1, ylim = c(0, 1), xlab = "repeticiones", ylab = "frec rel", main = "Frecuencia relativade cara")
+# Agregamos la segunda
+points(seq(1:Nrep), frec_relativa_vec_2, cex = 0.1, col = "red")
+# Creamos (y agregamos) las de los 28 participantes restantes
+
+N_gente <- 28
+
+for (j in 1:N_gente) {
+    # Agreguemos la simulacion del individuo j
+    muchas_monedas <- muchas_monedas <- sample(x = moneda, size = Nrep, replace = TRUE)
+    # aca estan los lanzamientos del individuo j
+    frec_relativa_vec <- rep(NA, Nrep)
+
+    for (n in 1:Nrep) {
+        frec_relativa_vec[n] <- mean(muchas_monedas[1:n] == "cara")
+    }
+    # aca tenemos las frecuencias relativas del individuo j
+    # Agregamos al grafico los puntos del individuo j en color j
+    points(seq(1:Nrep), frec_relativa_vec, cex = 0.1, col = j)
+}
+```
