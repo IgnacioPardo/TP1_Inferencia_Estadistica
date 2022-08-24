@@ -104,7 +104,7 @@ curve(dnorm(x, p_1, sqrt(p_1 * (1-p_1) / 100)), add=TRUE, lwd=2, col="magenta")
 par(mfrow=c(1, 1))
 ```
 
-En los graficos se puede observar que a medida que el valor de n es mas alto, los promedios se concentran mas cerca de la esperanza de la variable que estamos analizando. Esto se explica por la Ley de los Grandes Numeros.
+En los graficos se puede observar que a medida que el valor de n es mas alto, los promedios se concentran mas cerca de la esperanza de la variable que estamos analizando. Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Exponencial se aproxima a la curva de la normal $N(\mu, \frac{\sigma^2}{n})$. Esto se explica por la Ley de los Grandes Numeros.
 
 #### La distribución empírica del promedio estandarizado
 
@@ -257,6 +257,8 @@ La varianza muestral aproxima a la varianza por LGN.
 hist(unif_N_infty, col = "lightblue")
 ```
 
+Si, el histograma aparenta la forma de una distribución uniforme, con valores entre 63 y 73.
+
 #### La distribución empírica del promedio
 
 -   Guardar en el vector `promedios_uniformes`, $Nrep = 10000$ promedios utilizando $n = 5$ datos con distribución $X$.
@@ -294,7 +296,7 @@ curve(dnorm(x, e_unif, sqrt( var_unif/ n_dist)), add=TRUE, lwd=2, col="blue")
 par(mfrow=c(1, 1))
 ```
 
-Cuanto mayor sea la n, mas se aproxima a la esperanza
+En los graficos se puede observar que a medida que el valor de n es mas alto, los promedios se concentran mas cerca de la esperanza de la variable que estamos analizando. Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Uniformes se aproxima a la curva de la normal $N(\mu, \frac{\sigma^2}{n})$.
 
 #### La distribución empírica del promedio estandarizado
 
@@ -383,6 +385,8 @@ La varianza muestral aproxima a la varianza
 hist(exp_N_infty, col = "orange")
 ```
 
+Si, el histograma tiene la forma de una distribución exponencial.
+
 #### La distribución empírica del promedio
 
 -   Guardar en el vector `promedios_exponenciales`, $Nrep = 10000$ promedios utilizando $n = 5$ datos con distribución $X$.
@@ -420,6 +424,8 @@ curve(dnorm(x, e_exp, sqrt( var_exp/ n_dist)), add=TRUE, lwd=2, col="red")
 par(mfrow=c(1, 1))
 ```
 
+En los graficos se puede observar que a medida que el valor de n es mas alto, los promedios se concentran mas cerca de la esperanza de la variable que estamos analizando. Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Exponencial se aproxima a la curva de la normal $N(\mu, \frac{\sigma^2}{n})$.
+
 #### La distribución empírica del promedio estandarizado
 
 -   Realizar ahora histogramas de densidad con los datos de `promedios_exponenciales_est` donde a los valores guardados en `promedios_exponenciales` se les resta $\mu$ y se los divide por $\sqrt(\sigma^{2}/n)$. Utilizar $n \in \{5, 30, 100\}$. ¿Qué observa? Explicar.
@@ -449,7 +455,7 @@ par(mfrow=c(1, 1))
 
 -   A los histogramas de densidad del ítem anterior, superponer las curvas de la densidad normal con la media y desvío que considere adecuados. ¿Qué observa? Explicar.
 
-    Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Exponencial se aproxima a la curva de la normal $N(0, 1)$
+    Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Exponencial se aproxima a la curva de la normal $N(0, 1)$.
 
 ### Distribución Normal: un caso particular
 
@@ -502,6 +508,8 @@ La varianza aproxima
 ```{r}
 hist(norm_N_infty, col = "darkgreen")
 ```
+
+Si, el histograma tiene la forma de una distribución normal con su esperanza en 70 y se encuentra aproximadamente acotada entre 70 - 3 \* 1.2 y 70 + 3 \* 1.2.
 
 #### La distribución empírica del promedio
 
@@ -573,4 +581,4 @@ par(mfrow=c(1, 1))
 
 -   Explicar las diferencias que puede haber en las conclusiones para este apartado (distribución normal) y las de las distribuciones anteriores (Bernoulli, uniforme y exponencial).
 
-    El promedio de variables aleatorias $X_i \sim N(\mu, \sigma^2)$ tiene distribución exactamente $N(\mu, \frac{\sigma^2}{n})$, mientras que en los items anteriores, las distribuciones aproximaban a la distribicion de una normal.
+    El promedio de variables aleatorias $X_i \sim N(\mu, \sigma^2)$ tiene distribución exactamente $N(\mu, \frac{\sigma^2}{n})$, mientras que en los items anteriores, las distribuciones aproximaban a la distribicion de una normal. En este caso, la distribución es exactamente $N(0, 1)$
