@@ -5,52 +5,6 @@ date: "`r Sys.Date()`"
 output: pdf_document
 ---
 
-## Primera parte: Ley de los Grandes Números
-
-### Simulación del lanzamiento de un dado
-
-1.  Indicar el valor de $\operatorname{P}(X = 5)$ y el de $\operatorname{E}(X)$.
-
-$$\operatorname{P}(X = 5) = 1/6$$ $$\begin{aligned}\operatorname{E}(X) & = \sum_{x \in Rx}{x*\operatorname{P}(X = x)}\\
-                   & = \sum_{x \in Rx}{x*1/6} \\
-                   & = \sum_{x \in Rx}{x/6}
-\end{aligned}$$
-
-```{r}
-dado <- c(1:6)
-sum(dado / 6)
-```
-
-$$\operatorname{E}(X) = 3.5$$
-
-2.  Construir un vector `muchosdados` y guardar en él los resultados correspondientes a lanzar `reps=1000` veces el dado
-
-```{r}
-reps <- 1000
-
-muchosdados <- sample(x = dado, size = reps, replace = TRUE)
-```
-
-3.  Para cada valor $n= 1,...,reps$, calcular la frecuencia relativa con la que el $5$ aparece en los primeros $n$ lanzamientos y guardarla en el vector `frecrelativadado5vec`
-
-```{r}
-frecrelativadado5vec <- rep(NA, reps)
-
-for (n in 1:reps) {
-    frecrelativadado5vec[n] <- mean(muchosdados[1:n] == 5)
-}
-```
-
-4.  Graficar en el eje $x$ los valores de $n$ y en el eje $y$ las correspondientes frecuencias relativas. ¿Qué observa? Indicar, si es posible, a qué valor deberían converger esas frecuencias y por qué. ¿Se corresponde lo que observa en la práctica con lo que espera de la teoría?
-
-La frecuencia relativa se aproxima a $\operatorname{P}(X=5)$ a medida que crece la cantidad de repeticiones.
-
-```{r}
-plot(seq(1:reps), frecrelativadado5vec, cex = 0.1, ylim = c(0, 1),
-     xlab = "Repeticiones", ylab = "frec rel", 
-     main = "Frecuencia relativa de 5")
-```
-
 ## Segunda Parte: Teorema Central del Límite
 
 ### Distribución Bernoulli
