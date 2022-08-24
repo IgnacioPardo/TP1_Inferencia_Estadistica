@@ -97,13 +97,13 @@ La frecuencia relativa de X=1 se aproxima a la probabilidad (p) de la Bernoulli,
 mean(ber_N_infty)
 ```
 
-El promedio aproxima $\operatorname{E}(X) = 0,2$
+El promedio se aproxima a $\operatorname{E}(X) = 0,2$
 
 ```{r}
 var(ber_N_infty)
 ```
 
-La varianz aproxima $\operatorname{V}(X) = 0,16$
+La varianza se aproxima a $\operatorname{V}(X) = 0,16$
 
 -   Realizar un histograma de los datos. ¿Qué observa? ¿Es consistente con la distribución a partir de la cual fueron generados los datos?
 
@@ -111,7 +111,7 @@ La varianz aproxima $\operatorname{V}(X) = 0,16$
 hist(ber_N_infty, col = "darkmagenta")
 ```
 
-Las ocurrencias de $X=0$ en la distribución se aproximan a $8000$, y las de $X=1$ a $2000$, las cuales corresponden con la probabilidad $p=0m2$ y la cantidad de repeticiones $Nrep = 10000$
+Las ocurrencias de $X=0$ en la distribución se aproximan a $8000$, y las de $X=1$ a $2000$, las cuales corresponden con la probabilidad $p=0,2$ y la cantidad de repeticiones $Nrep = 10000$. Es consistente ya que con un valor de n grande, $P(|θn − θ| > ϵ) → 0 ∀ϵ > 0$
 
 #### La distribución empírica del promedio
 
@@ -146,6 +146,8 @@ hist(main = "Promedios Ber n = 100", promedios_bernoullies_100, probability = TR
 curve(dnorm(x, p_1, sqrt(p_1 * (1-p_1) / 100)), add=TRUE, lwd=2, col="magenta")
 par(mfrow=c(1, 1))
 ```
+
+En los graficos se puede observar que a medida que el valor de n es mas alto, los promedios se concentran mas cerca de la esperanza de la variable que estamos analizando. Esto se explica por la Ley de los Grandes Numeros.
 
 #### La distribución empírica del promedio estandarizado
 
@@ -219,6 +221,8 @@ curve(dnorm(x,0,1), add=TRUE, lwd=2, col="magenta")
 par(mfrow=c(1, 1))
 ```
 
+Hay diferencias pero infimas, el histograma de densidad sigue aproximandose a la curva de la normal $N(0, 1)$.
+
 ### Distribución Uniforme
 
 Sea $X \sim \operatorname{\mathcal{U}}(a, b)$ siendo $a = 67$, $b = 73$.
@@ -255,6 +259,8 @@ Nrep = 10000
 unif_N_infty = runif(Nrep, a, b)
 ```
 
+Todos los valores se aproximan a la esperanza de la variable en cuestion. Esto se explica ya que la frecuencia relativa es la proporción que representa la frecuencia absoluta (el numero de veces que se repite la variable a en este caso) en relación con el total, es decir, lo mismo que calcula la esperanza.
+
 -   Calcular el promedio y la varianza muestral con los datos del vector `ber_N_infty` y comparar con los obtenidos en el primer ítem. ¿Qué observa?
 
 ```{r}
@@ -263,7 +269,7 @@ e_unif_m = mean(unif_N_infty)
 e_unif
 ```
 
-El promedio aproxima
+El promedio aproxima a la esperanza
 
 ```{r}
 var_unif = (b - a)^2 / 12
@@ -271,7 +277,7 @@ var_unif_m = var(unif_N_infty)
 var_unif
 ```
 
-La varianza aproxima
+La varianza muestral aproxima a la varianza
 
 -   Realizar un histograma de los datos. ¿Qué observa? ¿Es consistente con la distribución a partir de la cual fueron generados los datos?
 
@@ -313,6 +319,8 @@ curve(dnorm(x, e_unif, sqrt( var_unif/ n_dist)), add=TRUE, lwd=2, col="blue")
 par(mfrow=c(1, 1))
 ```
 
+Cuanto mayor sea la n, mas se aproxima a la esperanza
+
 #### La distribución empírica del promedio estandarizado
 
 -   Realizar ahora histogramas de densidad con los datos de `promedios_uniformes_est` donde a los valores guardados en `promedios_uniformes` se les resta $\mu$ y se los divide por $\sqrt(\sigma^{2}/n)$. Utilizar $n \in \{5, 30, 100\}$. ¿Qué observa? Explicar.
@@ -334,6 +342,11 @@ curve(dnorm(x,0,1), add=TRUE, lwd=2, col="blue")
 par(mfrow=c(1, 1))
 ```
 
+-   Con $n$ cada vez mayor, la distribución de la muestra se aproxima más a la distribucíon de una $N(0, 1)$.
+
+```{=html}
+<!-- -->
+```
 -   A los histogramas de densidad del ítem anterior, superponer las curvas de la densidad normal con la media y desvío que considere adecuados. ¿Qué observa? Explicar.
 
     Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Uniforme se aproxima a la curva de la normal $N(0, 1)$
@@ -379,7 +392,7 @@ e_exp = 1/l
 e_exp
 ```
 
-El promedio aproxima
+El promedio aproxima a la esperanza
 
 ```{r}
 var_exp = var(exp_N_infty)
@@ -387,7 +400,7 @@ var_exp = 1/(l^2)
 var_exp
 ```
 
-La varianza aproxima
+La varianza muestral aproxima a la varianza
 
 -   Realizar un histograma de los datos. ¿Qué observa? ¿Es consistente con la distribución a partir de la cual fueron generados los datos?
 
@@ -566,4 +579,3 @@ par(mfrow=c(1, 1))
     Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Normales es exactamente la curva de la normal $N(0, 1)$
 
 -   Explicar las diferencias que puede haber en las conclusiones para este apartado (distribución normal) y las de las distribuciones anteriores (Bernoulli, uniforme y exponencial).
-
