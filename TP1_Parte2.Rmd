@@ -65,7 +65,7 @@ La varianza se aproxima a $\operatorname{V}(X) = 0,16$
 hist(ber_N_infty, col = "darkmagenta")
 ```
 
-Las ocurrencias de $X=0$ en la distribución se aproximan a $8000$, y las de $X=1$ a $2000$, las cuales corresponden con la probabilidad $p=0,2$ y la cantidad de repeticiones $Nrep = 10000$. Es consistente ya que con un valor de n grande, $P(|θn − θ| > ϵ) → 0 ∀ϵ > 0$
+Las ocurrencias de $X=0$ en la distribución se aproximan a $8000$, y las de $X=1$ a $2000$, las cuales corresponden con la probabilidad $p=0,2$ y la cantidad de repeticiones $Nrep = 10000$. Es consistente ya que $P(|\hat{\theta}_n - \theta| > \epsilon) \xrightarrow[n\to\infty]{}0, \forall \epsilon > 0$
 
 #### La distribución empírica del promedio
 
@@ -80,7 +80,8 @@ table(promedios_bernoullies_5)
 -   Con los promedios guardados en promedios bernoullies, realizar un histograma de densidad. Para el histograma de densidad, usar el argumento `probability = TRUE` en el comando `hist()`. Además, como n = 5 puede ser pequeño, al usar `hist()` puede ajustar el parámetro `breaks`. Observar qué ocurre al poner (o no) ese parámetro. Luego, superponer el gráfico de la curva de la densidad normal con la media y desvío que considere razonables.
 
 ```{r}
-hist(main = "Promedios Ber n = 5", promedios_bernoullies_5, probability = TRUE, xlim = c(0,1), col = "darkmagenta", breaks = 4)
+hist(main = "Promedios Ber n = 5", promedios_bernoullies_5, 
+     probability = TRUE, xlim = c(0,1), col = "darkmagenta", breaks = 4)
 curve(dnorm(x, p_1, sqrt(p_1 * (1-p_1) / 5)), add=TRUE, lwd=2, col="magenta")
 ```
 
@@ -91,12 +92,14 @@ n_dist = 30
 promedios_bernoullies_30 = replicate(Nrep, mean(rbinom(n_dist, 1, p_1)))
 
 par(mfrow=c(2, 1))
-hist(main = "Promedios Ber n = 30", promedios_bernoullies_30, probability = TRUE, xlim = c(0,1), col = "darkmagenta")
+hist(main = "Promedios Ber n = 30", promedios_bernoullies_30, 
+     probability = TRUE, xlim = c(0,1), col = "darkmagenta")
 curve(dnorm(x, p_1, sqrt(p_1 * (1-p_1) / 30)), add=TRUE, lwd=2, col="magenta")
 
 n_dist = 100
 promedios_bernoullies_100 = replicate(Nrep, mean(rbinom(n_dist, 1, p_1)))
-hist(main = "Promedios Ber n = 100", promedios_bernoullies_100, probability = TRUE, xlim = c(0,1), col = "darkmagenta")
+hist(main = "Promedios Ber n = 100", promedios_bernoullies_100, 
+     probability = TRUE, xlim = c(0,1), col = "darkmagenta")
 curve(dnorm(x, p_1, sqrt(p_1 * (1-p_1) / 100)), add=TRUE, lwd=2, col="magenta")
 par(mfrow=c(1, 1))
 ```
@@ -110,18 +113,24 @@ En los graficos se puede observar que a medida que el valor de n es mas alto, lo
     Con $n$ cada vez mayor, la distribución de la muestra se aproxima más a la distribucíon de una $N(0, 1)$.
 
 ```{r}
-promedios_bernoullies_est_5 = (promedios_bernoullies_5 - p_1) / sqrt(p_1 * (1-p_1) / 5)
+promedios_bernoullies_est_5 = (promedios_bernoullies_5 - p_1) / 
+  sqrt(p_1 * (1-p_1) / 5)
 
 par(mfrow=c(3, 1))
-hist(promedios_bernoullies_est_5, xlim = c(-3, 3), ylim = c(0, 0.8), probability = TRUE, col = "darkmagenta")
+hist(promedios_bernoullies_est_5, xlim = c(-3, 3), ylim = c(0, 0.8), 
+     probability = TRUE, col = "darkmagenta")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="magenta")
 
-promedios_bernoullies_est_30 = (promedios_bernoullies_100 - p_1) / sqrt(p_1 * (1-p_1) / 30)
-hist(promedios_bernoullies_est_30, xlim = c(-3, 3), ylim = c(0, 0.8), probability = TRUE, col = "darkmagenta")
+promedios_bernoullies_est_30 = (promedios_bernoullies_100 - p_1) / 
+  sqrt(p_1 * (1-p_1) / 30)
+hist(promedios_bernoullies_est_30, xlim = c(-3, 3), ylim = c(0, 0.8), 
+     probability = TRUE, col = "darkmagenta")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="magenta")
 
-promedios_bernoullies_est_100 = (promedios_bernoullies_100 - p_1) / sqrt(p_1 * (1-p_1) / 100)
-hist(promedios_bernoullies_est_100, xlim = c(-3, 3), ylim = c(0, 0.8), probability = TRUE, col = "darkmagenta")
+promedios_bernoullies_est_100 = (promedios_bernoullies_100 - p_1) / 
+  sqrt(p_1 * (1-p_1) / 100)
+hist(promedios_bernoullies_est_100, xlim = c(-3, 3), ylim = c(0, 0.8), 
+     probability = TRUE, col = "darkmagenta")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="magenta")
 par(mfrow=c(1, 1))
 ```
@@ -139,17 +148,20 @@ par(mfrow=c(3, 1))
 
 n_dist = 5
 promedios_bernoullies_alt_5 = replicate(Nrep, mean(rbinom(n_dist, 1, p_2)))
-hist(main = "Promedios Ber(0,5) n = 5", promedios_bernoullies_alt_5, probability = TRUE, xlim = c(0,1), ylim = c(0, 10), col = "darkmagenta")
+hist(main = "Promedios Ber(0,5) n = 5", promedios_bernoullies_alt_5, 
+     probability = TRUE, xlim = c(0,1), ylim = c(0, 10), col = "darkmagenta")
 curve(dnorm(x, p_2, sqrt(p_2 * (1-p_2) / n_dist)), add=TRUE, lwd=2, col="magenta")
 
 n_dist = 30
 promedios_bernoullies_alt_30 = replicate(Nrep, mean(rbinom(n_dist, 1, p_2)))
-hist(main = "Promedios Ber(0,5) n = 30", promedios_bernoullies_alt_30, probability = TRUE, xlim = c(0,1), ylim = c(0, 10), col = "darkmagenta")
+hist(main = "Promedios Ber(0,5) n = 30", promedios_bernoullies_alt_30, 
+     probability = TRUE, xlim = c(0,1), ylim = c(0, 10), col = "darkmagenta")
 curve(dnorm(x, p_2, sqrt(p_2 * (1-p_2) / n_dist)), add=TRUE, lwd=2, col="magenta")
 
 n_dist = 100
 promedios_bernoullies_alt_100 = replicate(Nrep, mean(rbinom(n_dist, 1, p_2)))
-hist(main = "Promedios Ber(0,5) n = 100", promedios_bernoullies_alt_100, probability = TRUE, xlim = c(0,1), ylim = c(0, 10), col = "darkmagenta")
+hist(main = "Promedios Ber(0,5) n = 100", promedios_bernoullies_alt_100, 
+     probability = TRUE, xlim = c(0,1), ylim = c(0, 10), col = "darkmagenta")
 curve(dnorm(x, p_2, sqrt(p_2 * (1-p_2) / n_dist)), add=TRUE, lwd=2, col="magenta")
 par(mfrow=c(1, 1))
 ```
@@ -158,18 +170,24 @@ par(mfrow=c(1, 1))
 par(mfrow=c(3, 1))
 
 n_dist = 5
-promedios_bernoullies_alt_est_5 = (promedios_bernoullies_alt_5 - p_2) / sqrt(p_2 * (1-p_2) / n_dist)
-hist(promedios_bernoullies_alt_est_5, xlim = c(-3, 3), ylim = c(0, 0.8), probability = TRUE, col="darkmagenta")
+promedios_bernoullies_alt_est_5 = (promedios_bernoullies_alt_5 - p_2) / 
+  sqrt(p_2 * (1-p_2) / n_dist)
+hist(promedios_bernoullies_alt_est_5, xlim = c(-3, 3), ylim = c(0, 0.8), 
+     probability = TRUE, col="darkmagenta")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="magenta")
 
 n_dist = 30
-promedios_bernoullies_alt_est_30 = (promedios_bernoullies_alt_30 - p_2) / sqrt(p_2 * (1-p_2) / n_dist)
-hist(promedios_bernoullies_alt_est_30, xlim = c(-3, 3), ylim = c(0, 0.8), probability = TRUE, col="darkmagenta")
+promedios_bernoullies_alt_est_30 = (promedios_bernoullies_alt_30 - p_2) / 
+  sqrt(p_2 * (1-p_2) / n_dist)
+hist(promedios_bernoullies_alt_est_30, xlim = c(-3, 3), ylim = c(0, 0.8), 
+     probability = TRUE, col="darkmagenta")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="magenta")
 
 n_dist = 100
-promedios_bernoullies_alt_est_100 = (promedios_bernoullies_alt_100 - p_2) / sqrt(p_2 * (1-p_2) / n_dist)
-hist(promedios_bernoullies_alt_est_100, xlim = c(-3, 3), ylim = c(0, 0.8), probability = TRUE, col="darkmagenta")
+promedios_bernoullies_alt_est_100 = (promedios_bernoullies_alt_100 - p_2) / 
+  sqrt(p_2 * (1-p_2) / n_dist)
+hist(promedios_bernoullies_alt_est_100, xlim = c(-3, 3), ylim = c(0, 0.8), 
+     probability = TRUE, col="darkmagenta")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="magenta")
 
 par(mfrow=c(1, 1))
@@ -223,7 +241,7 @@ e_unif_m = mean(unif_N_infty)
 e_unif
 ```
 
-El promedio aproxima a la esperanza
+El promedio aproxima a la esperanza por LGN.
 
 ```{r}
 var_unif = (b - a)^2 / 12
@@ -231,7 +249,7 @@ var_unif_m = var(unif_N_infty)
 var_unif
 ```
 
-La varianza muestral aproxima a la varianza
+La varianza muestral aproxima a la varianza por LGN.
 
 -   Realizar un histograma de los datos. ¿Qué observa? ¿Es consistente con la distribución a partir de la cual fueron generados los datos?
 
@@ -252,7 +270,8 @@ promedios_uniformes_5 = replicate(Nrep, mean(runif(n_dist, a, b)))
 
 ```{r}
 n_dist = 5
-hist(main = "Promedios Unif n = 5", promedios_uniformes_5, probability = TRUE, xlim = c(a, b), ylim=c(0,1), col = "lightblue")
+hist(main = "Promedios Unif n = 5", promedios_uniformes_5, 
+     probability = TRUE, xlim = c(a, b), ylim=c(0,1), col = "lightblue")
 curve(dnorm(x, e_unif, sqrt(var_unif/n_dist)), add=TRUE, lwd=2, col="blue")
 ```
 
@@ -263,12 +282,14 @@ n_dist = 30
 promedios_uniformes_30 = replicate(Nrep, mean(runif(n_dist, a, b)))
 
 par(mfrow=c(2, 1))
-hist(main = "Promedios Unif n = 30", promedios_uniformes_30, probability = TRUE, xlim = c(a, b), ylim = c(0, 3), col = "lightblue")
+hist(main = "Promedios Unif n = 30", promedios_uniformes_30, 
+     probability = TRUE, xlim = c(a, b), ylim = c(0, 3), col = "lightblue")
 curve(dnorm(x, e_unif, sqrt( var_unif/ n_dist)), add=TRUE, lwd=2, col="blue")
 
 n_dist = 100
 promedios_uniformes_100 = replicate(Nrep, mean(runif(n_dist, a, b)))
-hist(main = "Promedios Unif n = 100", promedios_uniformes_100, probability = TRUE, xlim = c(a, b), ylim = c(0, 3), col = "lightblue")
+hist(main = "Promedios Unif n = 100", promedios_uniformes_100, 
+     probability = TRUE, xlim = c(a, b), ylim = c(0, 3), col = "lightblue")
 curve(dnorm(x, e_unif, sqrt( var_unif/ n_dist)), add=TRUE, lwd=2, col="blue")
 par(mfrow=c(1, 1))
 ```
@@ -283,24 +304,24 @@ Cuanto mayor sea la n, mas se aproxima a la esperanza
 promedios_uniformes_est_5 = (promedios_uniformes_5 - e_unif) / sqrt(var_unif / 5)
 
 par(mfrow=c(3, 1))
-hist(promedios_uniformes_est_5, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "lightblue")
+hist(promedios_uniformes_est_5, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "lightblue")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="blue")
 
 promedios_uniformes_est_30 = (promedios_uniformes_30 - e_unif) / sqrt(var_unif / 30)
-hist(promedios_uniformes_est_30, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "lightblue")
+hist(promedios_uniformes_est_30, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "lightblue")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="blue")
 
 promedios_uniformes_est_100 = (promedios_uniformes_100 - e_unif) / sqrt(var_unif / 100)
-hist(promedios_uniformes_est_100, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "lightblue")
+hist(promedios_uniformes_est_100, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "lightblue")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="blue")
 par(mfrow=c(1, 1))
 ```
 
 -   Con $n$ cada vez mayor, la distribución de la muestra se aproxima más a la distribucíon de una $N(0, 1)$.
 
-```{=html}
-<!-- -->
-```
 -   A los histogramas de densidad del ítem anterior, superponer las curvas de la densidad normal con la media y desvío que considere adecuados. ¿Qué observa? Explicar.
 
     Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Uniforme se aproxima a la curva de la normal $N(0, 1)$
@@ -375,7 +396,8 @@ promedios_exponenciales_5 = replicate(Nrep, mean(rexp(n_dist, l)))
 
 ```{r}
 n_dist = 5
-hist(main = "Promedios Exp n = 5", promedios_exponenciales_5, probability = TRUE, ylim=c(0, l), col = "orange")
+hist(main = "Promedios Exp n = 5", promedios_exponenciales_5, 
+     probability = TRUE, ylim=c(0, l), col = "orange")
 curve(dnorm(x, e_exp, sqrt(var_exp/ n_dist)), add=TRUE, lwd=2, col="red")
 ```
 
@@ -386,12 +408,14 @@ n_dist = 30
 promedios_exponenciales_30 = replicate(Nrep, mean(rexp(n_dist, l)))
 
 par(mfrow=c(2, 1))
-hist(main = "Promedios Exp n = 30", promedios_exponenciales_30, probability = TRUE, col = "orange")
+hist(main = "Promedios Exp n = 30", promedios_exponenciales_30,
+     probability = TRUE, col = "orange")
 curve(dnorm(x, e_exp, sqrt( var_exp/ n_dist)), add=TRUE, lwd=2, col="red")
 
 n_dist = 100
 promedios_exponenciales_100 = replicate(Nrep, mean(rexp(n_dist, l)))
-hist(main = "Promedios Exp n = 100", promedios_exponenciales_100, probability = TRUE, col = "orange")
+hist(main = "Promedios Exp n = 100", promedios_exponenciales_100, 
+     probability = TRUE, col = "orange")
 curve(dnorm(x, e_exp, sqrt( var_exp/ n_dist)), add=TRUE, lwd=2, col="red")
 par(mfrow=c(1, 1))
 ```
@@ -401,18 +425,24 @@ par(mfrow=c(1, 1))
 -   Realizar ahora histogramas de densidad con los datos de `promedios_exponenciales_est` donde a los valores guardados en `promedios_exponenciales` se les resta $\mu$ y se los divide por $\sqrt(\sigma^{2}/n)$. Utilizar $n \in \{5, 30, 100\}$. ¿Qué observa? Explicar.
 
 ```{r}
-promedios_exponenciales_est_5 = (promedios_exponenciales_5 - e_exp) / sqrt(var_exp / 5)
+promedios_exponenciales_est_5 = (promedios_exponenciales_5 - e_exp) / 
+  sqrt(var_exp / 5)
 
 par(mfrow=c(3, 1))
-hist(promedios_exponenciales_est_5, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "orange")
+hist(promedios_exponenciales_est_5, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "orange")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="red")
 
-promedios_exponenciales_est_30 = (promedios_exponenciales_30 - e_exp) / sqrt(var_exp / 30)
-hist(promedios_exponenciales_est_30, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "orange")
+promedios_exponenciales_est_30 = (promedios_exponenciales_30 - e_exp) / 
+  sqrt(var_exp / 30)
+hist(promedios_exponenciales_est_30, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "orange")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="red")
 
-promedios_exponenciales_est_100 = (promedios_exponenciales_100 - e_exp) / sqrt(var_exp / 100)
-hist(promedios_exponenciales_est_100, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "orange")
+promedios_exponenciales_est_100 = (promedios_exponenciales_100 - e_exp) / 
+  sqrt(var_exp / 100)
+hist(promedios_exponenciales_est_100, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "orange")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="red")
 par(mfrow=c(1, 1))
 ```
@@ -486,7 +516,8 @@ promedios_normales_5 = replicate(Nrep, mean(rnorm(n_dist, mu, sd)))
 
 ```{r}
 n_dist = 5
-hist(main = "Promedios Norm n = 5", promedios_normales_5, probability = TRUE, col = "darkgreen")
+hist(main = "Promedios Norm n = 5", promedios_normales_5, 
+     probability = TRUE, col = "darkgreen")
 curve(dnorm(x, e_norm, sqrt( var_norm/ n_dist)), add=TRUE, lwd=2, col="green")
 ```
 
@@ -497,12 +528,14 @@ n_dist = 30
 promedios_normales_30 = replicate(Nrep, mean(rnorm(n_dist, mu, sd)))
 
 par(mfrow=c(2, 1))
-hist(main = "Promedios Norm n = 30", promedios_normales_30, probability = TRUE, col = "darkgreen")
+hist(main = "Promedios Norm n = 30", promedios_normales_30, 
+     probability = TRUE, col = "darkgreen")
 curve(dnorm(x, e_norm, sqrt( var_norm/ n_dist)), add=TRUE, lwd=2, col="green")
 
 n_dist = 100
 promedios_normales_100 = replicate(Nrep, mean(rnorm(n_dist, mu, sd)))
-hist(main = "Promedios Norm n = 100", promedios_normales_100, probability = TRUE, col = "darkgreen")
+hist(main = "Promedios Norm n = 100", promedios_normales_100, 
+     probability = TRUE, col = "darkgreen")
 curve(dnorm(x, e_norm, sqrt( var_norm/ n_dist)), add=TRUE, lwd=2, col="green")
 par(mfrow=c(1, 1))
 ```
@@ -512,18 +545,24 @@ par(mfrow=c(1, 1))
 -   Realizar ahora histogramas de densidad con los datos de `promedios_normales_est` donde a los valores guardados en `promedios_normales` se les resta $\mu$ y se los divide por $\sqrt(\sigma^{2}/n)$. Utilizar $n \in \{5, 30, 100\}$. ¿Qué observa? Explicar.
 
 ```{r}
-promedios_normales_est_5 = (promedios_normales_5 - e_norm) / sqrt(var_norm / 5)
+promedios_normales_est_5 = (promedios_normales_5 - e_norm) / 
+  sqrt(var_norm / 5)
 
 par(mfrow=c(3, 1))
-hist(promedios_normales_est_5, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "darkgreen")
+hist(promedios_normales_est_5, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "darkgreen")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="green")
 
-promedios_normales_est_30 = (promedios_normales_30 - e_norm) / sqrt(var_norm / 30)
-hist(promedios_normales_est_30, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "darkgreen")
+promedios_normales_est_30 = (promedios_normales_30 - e_norm) / 
+  sqrt(var_norm / 30)
+hist(promedios_normales_est_30, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "darkgreen")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="green")
 
-promedios_normales_est_100 = (promedios_normales_100 - e_norm) / sqrt(var_norm / 100)
-hist(promedios_normales_est_100, xlim = c(-3, 3), ylim = c(0, 1), probability = TRUE, col = "darkgreen")
+promedios_normales_est_100 = (promedios_normales_100 - e_norm) / 
+  sqrt(var_norm / 100)
+hist(promedios_normales_est_100, xlim = c(-3, 3), ylim = c(0, 1), 
+     probability = TRUE, col = "darkgreen")
 curve(dnorm(x,0,1), add=TRUE, lwd=2, col="green")
 par(mfrow=c(1, 1))
 ```
@@ -533,3 +572,5 @@ par(mfrow=c(1, 1))
     Con $n \to \infty$, el histograma de densidad de la estimación de la normal apartir de la muestra con elementos Normales es exactamente la curva de la normal $N(0, 1)$
 
 -   Explicar las diferencias que puede haber en las conclusiones para este apartado (distribución normal) y las de las distribuciones anteriores (Bernoulli, uniforme y exponencial).
+
+    El promedio de variables aleatorias $X_i \sim N(\mu, \sigma^2)$ tiene distribución exactamente $N(\mu, \frac{\sigma^2}{n})$, mientras que en los items anteriores, las distribuciones aproximaban a la distribicion de una normal.
